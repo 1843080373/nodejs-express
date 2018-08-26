@@ -1,0 +1,22 @@
+{
+  "name": "weixin",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "request": "^2.83.0",
+    "serve-favicon": "~2.4.2",
+    "sha1": "^1.1.1",
+    "xml2js": "^0.4.19"
+  }
+}
