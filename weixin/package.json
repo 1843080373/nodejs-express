@@ -13,10 +13,12 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "md5-node": "^1.0.1",
     "morgan": "~1.9.0",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.2",
     "sha1": "^1.1.1",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "xmlreader": "^0.2.3"
   }
 }

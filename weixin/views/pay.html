@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<head>
+    <title>微信支付</title>
+</head>
+<body>
+    <input id="appId" type="hidden" value="<% appId %>">
+    <input id="timeStamp" type="hidden" value="<%- timeStamp %>">
+    <input id="nonceStr" type="hidden" value="<%- nonceStr %>">
+    <input id="package" type="hidden" value="<%- packageStr %>">
+    <input id="signType" type="hidden" value="MD5">
+    <input id="paySign" type="hidden" value="<%- sign %>">
+<script>
+function onBridgeReady(){
+    var appId = document.getElementById('appId').value;
+    var timeStamp = document.getElementById('timeStamp').value;
+    var nonceStr = document.getElementById('nonceStr').value;
+    var package = document.getElementById('package').value;
+    var signType = document.getElementById('signType').value;
+    var paySign = document.getElementById('paySign').value;
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', {
+            "appId": appId,     //公众号名称，由商户传入     
+            "timeStamp":timeStamp,         //时间戳，自1970年以来的秒数     
+            "nonceStr": nonceStr, //随机串     
+            "package": package,     
+            "signType": signType,         //微信签名方式：     
+            "paySign": paySign //微信签名 
+        },
+        function(res){
+            WeixinJSBridge.log(res.err_msg);
+            //alert(res.err_code + res.err_desc + res.err_msg);
+            if (res.err_msg == "get_brand_wcpay_request:ok") {  
+                window.location.href = '/artist/alipayresult?trade_status=TRADE_SUCCESS';
+                // 执行跳转页面....  
+            } else if (res.err_msg == "get_brand_wcpay_request:cancel") {  
+                alert ("用户取消支付!");  
+            } else {  
+                alert ("支付失败!");  
+            }  
+            
+        }
+    ); 
+}
+
+if (typeof WeixinJSBridge == "undefined"){
+    if( document.addEventListener ){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }else if (document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+}else{
+    onBridgeReady();
+}
+</script>
+</body>
+</html>
