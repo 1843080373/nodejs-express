@@ -73,7 +73,7 @@ function verifySign(params) {
         //3.组合成“参数=参数值”的格式，并且把这些参数用&字符连接起来
         let paramsString = paramsList.map(([k, v]) => `${k}=${decodeURIComponent(v)}`).join('&');
         let publicKey = fs.readFileSync(config.rsaPublic, 'utf8');
-        return this._verifyWithPublicKey(signType, sign, paramsString, publicKey);
+        return _verifyWithPublicKey(signType, sign, paramsString, publicKey);
     } catch (e) {
         console.error(e);
         return false;
@@ -196,8 +196,7 @@ router.get('/notifyUrl', function(req, res, next) {
     let passbackParams = req.body.passback_params;//回传参数:公共回传参数，如果请求时传递了该参数，则返回给商户时会在异步通知时将该参数原样返回。本参数必须进行UrlEncode之后才可以发送给支付宝
     let voucherDetailList = req.body.voucher_detail_list;//优惠券信息:本交易支付时所使用的所有优惠券信息，详见<a href="#youhui" class="bi-link">优惠券信息说明</a>
  
-    let payHelper = new AliPayHelper(DefineProto.AliAccountType.AAT_REMIND);
-    let isSuccess = payHelper.verifySign(req.body);
+    let isSuccess = verifySign(req.body);
     if (isSuccess) {
         if (tradeStatus === 'TRADE_FINISHED') {//交易状态TRADE_FINISHED的通知触发条件是商户签约的产品不支持退款功能的前提下，买家付款成功；或者，商户签约的产品支持退款功能的前提下，交易已经成功并且已经超过可退款期限。
  
