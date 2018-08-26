@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>支付宝支付</title>
+</head>
+<body onload="submitForm();">
+    <form id="ali-form" action="https://openapi.alipaydev.com/gateway.do" method="get">   
+        <input type="hidden" name="app_id" value="<%- alipayParam.app_id %>">
+        <input type="hidden" name="method" value="<%- alipayParam.method %>">
+        <input type="hidden" name="charset" value="<%- alipayParam.charset %>">
+        <input type="hidden" name="sign_type" value="<%- alipayParam.sign_type %>">
+        <input type="hidden" name="timestamp" value="<%- alipayParam.timestamp %>">
+        <input type="hidden" name="version" value="<%- alipayParam.version %>">
+        <input type="hidden" name="notify_url" value="<%- alipayParam.notify_url %>">
+        <input type="hidden" name="biz_content" value="<%- alipayParam.biz_content %>">
+        <input type="hidden" name="sign" value="<%- alipayParam.sign %>">
+    </form>
+</body>
+<script>
+    function submitForm() {
+        var frm = document.getElementById("ali-form");
+        frm.submit();
+    }
+</script>
+</html>
